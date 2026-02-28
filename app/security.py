@@ -9,10 +9,9 @@ import secrets
 
 load_dotenv()
 
-# Configuration from .env
-SECRET_KEY = 's' #os.getenv("SECRET_KEY")
-ALGORITHM = 'HS256' #os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = 600 #int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES=os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 # Password hashing setup
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
