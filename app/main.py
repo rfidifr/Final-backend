@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
-from app.routers  import admin, manager,login
+from .routers  import admin, manager,login
 app=FastAPI(
     title="Secure RFID Arcade Management System",
     description="A multi-tenant system for managing arcade branches, managers, and RFID cards.",
