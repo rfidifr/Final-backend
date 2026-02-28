@@ -37,7 +37,7 @@ class User(Base):
     arcade_id = Column(String, ForeignKey("arcades.id"), nullable=True)
     phone_number = Column(String, nullable=True)
     sms_opt_in = Column(Boolean, default=True)
-    membership =Column(Enum(mem_status),nullable=False, default="ord")
+    #membership =Column(Enum(mem_status),nullable=False, default="ord")
     arcade = relationship("Arcade", back_populates="users")
 
 class Machine(Base):
@@ -47,7 +47,7 @@ class Machine(Base):
     cost_per_play = Column(Float, default=1.0)
     arcade_id = Column(String, ForeignKey("arcades.id"))
     secret_key = Column(String,nullable=False)
-    status=Column(Enum(MachineStatus),nullable=False,default="online")
+    #status=Column(Enum(MachineStatus),nullable=False,default="online")
 
     arcade = relationship("Arcade", back_populates="machines")
 
@@ -58,7 +58,7 @@ class Card(Base):
     contact_no = Column(String(10))
     balance = Column(Float, default=0.0)
     arcade_id = Column(String, ForeignKey("arcades.id"))
-    status=Column(Enum(cardStatus),nullable=False,default="active")
+    #status=Column(Enum(cardStatus),nullable=False,default="active")
     issue_data=Column(DateTime,nullable=False)
     expiry_data=Column(DateTime,nullable=False)
     

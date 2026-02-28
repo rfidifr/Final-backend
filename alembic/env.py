@@ -10,7 +10,7 @@ from alembic import context
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-DATABASE_URL = "postgresql://postgres.amzfsjihsdxpcfhuiztp:[YOUR-PASSWORD]@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
+DATABASE_URL = "postgresql://postgres.amzfsjihsdxpcfhuiztp:parvinder%%40123@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require"
 config.set_main_option(
     "sqlalchemy.url",
     DATABASE_URL
