@@ -1,21 +1,28 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import settings
+from dotenv import load_dotenv
 
-#SQLALCHEMY_DATABASE_URL= f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
-SQLALCHEMY_DATABASE_URL = "postgresql://rfid_db_l4s2_user:98QOQOEGkcPYR16f5FXESUaJTp4stvo0@dpg-d6hapq3h46gs73e3k7lg-a/rfid_db_l4s2"
-engine= create_engine(SQLALCHEMY_DATABASE_URL)
+# Load the variables from .env
+load_dotenv()
 
-sessionlocal=sessionmaker(autoflush=False,autocommit=False,bind=engine)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-Base=declarative_base()
+# Render fix: SQLAlchemy requires 'postgresql://' instead of 'postgres://'
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+# This is our "Dependency" that routes will use to get a DB connection
 def get_db():
-    db=sessionlocal()
+    db = SessionLocal()
     try:
-        yield db 
+        yield db
     finally:
         db.close()
-
-
