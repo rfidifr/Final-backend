@@ -15,7 +15,7 @@ class cardStatus(str,enum.Enum):
     active="Active",
     passive="Depreciated"
 
-class mem_status(str,enum.ENum):
+class mem_status(str,enum.Enum):
     vip="VIP"
     ord="ORD"
 

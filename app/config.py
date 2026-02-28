@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     algorithm: str
     access_token_expire_minutes: int
     database_url :str
+    secret_key_card:str
 
     class Config:
         env_file = ".env"
