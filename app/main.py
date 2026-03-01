@@ -42,4 +42,3 @@ try:
 except Exception as e:
     print(f"Error creating tables: {e}")
 
-app = FastAPI(...)    
