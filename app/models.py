@@ -12,7 +12,7 @@ class MachineStatus(str, enum.Enum):
     busy = "BLOCKED"
     a= "EXPIRED"
 class cardStatus(str,enum.Enum):
-    active="Active",
+    active="Active"
     passive="Depreciated"
 
 class mem_status(str,enum.Enum):
