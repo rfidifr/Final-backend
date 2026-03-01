@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session 
 from sqlalchemy import text        
 from app.database import get_db
-from app.routers import admin, manager, login
+from app.routers import admin, manager, login,operations
 from app.database import Base,engine
 from app import models
 
@@ -14,6 +14,7 @@ app = FastAPI(
 app.include_router(admin.router)
 app.include_router(manager.router)
 app.include_router(login.router)
+app.include_router(operations.router)
 
 @app.get("/")
 def home():
