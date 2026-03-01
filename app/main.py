@@ -5,11 +5,23 @@ from app.database import get_db
 from app.routers import admin, manager, login,operations
 from app.database import Base,engine
 from app import models
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Secure RFID Arcade Management System",
     description="A multi-tenant system for managing arcade branches, managers, and RFID cards.",
 )
+
+#ADDING CORR FOR FRONTEND
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all domains (perfect for a demo)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows GET, POST, etc.
+    allow_headers=["*"],  # Allows Authorization headers
+)
+
+
 
 app.include_router(admin.router)
 app.include_router(manager.router)
