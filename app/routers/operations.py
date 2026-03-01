@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends, status 
 from sqlalchemy.orm import Session
 from app import models, schemas, database
-from app.dependencies import get_current_user, verify_machine
+from app.dependencies import get_current_user
+from app.iot_dependencies import verify_machine
 
 router = APIRouter(
     prefix="/ops",
