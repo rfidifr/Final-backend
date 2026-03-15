@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from sqlalchemy import Column, String, Float, ForeignKey, DateTime, Boolean, Integer,Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -31,7 +33,7 @@ class Arcade(Base):
 
 class User(Base):
     __tablename__ = "users"
-    username = Column(String, primary_key=True, index=True)
+    username = Column(String,unique=True,index=True)
     hashed_password = Column(String, nullable=False)
     role = Column(String, default="manager") # 'administrator' or 'manager'
     arcade_id = Column(String, ForeignKey("arcades.id"), nullable=True)
@@ -39,6 +41,8 @@ class User(Base):
     sms_opt_in = Column(Boolean, default=True)
     #membership =Column(Enum(mem_status),nullable=False, default="ord")
     arcade = relationship("Arcade", back_populates="users")
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
 
 class Machine(Base):
     __tablename__ = "machines"
@@ -47,7 +51,7 @@ class Machine(Base):
     cost_per_play = Column(Float, default=1.0)
     arcade_id = Column(String, ForeignKey("arcades.id"))
     secret_key = Column(String,nullable=False)
-    #status=Column(Enum(MachineStatus),nullable=False,default="online")
+    status=Column(Enum(MachineStatus),nullable=False,default="online")
 
     arcade = relationship("Arcade", back_populates="machines")
 
@@ -59,9 +63,8 @@ class Card(Base):
     balance = Column(Float, default=0.0)
     arcade_id = Column(String, ForeignKey("arcades.id"))
     #status=Column(Enum(cardStatus),nullable=False,default="active")
-    issue_data=Column(DateTime,nullable=False)
-    expiry_data=Column(DateTime,nullable=False)
-    
+    issue_data = Column(DateTime,server_default=func.now())
+    expiry_data = Column(DateTime, server_default=(func.now() + timedelta(days=365)))
     arcade = relationship("Arcade", back_populates="cards")
 
 class RechargeHistory(Base):

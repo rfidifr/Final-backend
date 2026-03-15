@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field,constr
+from typing import Optional,Annotated
 from .models import MachineStatus
 
 # --- CARD SCHEMAS ---
@@ -14,7 +14,7 @@ class CardCreate(CardBase):
 
 class CardResponse(CardBase):
     balance: float
-    arcade_id: str
+  
 
     class Config:
         from_attributes = True
@@ -22,7 +22,7 @@ class CardResponse(CardBase):
 # --- TRANSACTION SCHEMAS ---
 class RechargeRequest(BaseModel):
     card_id: str
-    amount: float = Field(..., gt=0) # Must be greater than 0
+    amount: float = Field(..., gt=100) # Must be greater than 0
 
 class PunchRequest(BaseModel):
     card_id: str
@@ -49,6 +49,7 @@ class MachineCreate(BaseModel):
     name:str
     status:MachineStatus
     cost_per_play:float
+    arcade_id:str
     
 
 class MachineResponse(BaseModel):
@@ -56,6 +57,32 @@ class MachineResponse(BaseModel):
     name: str
     cost_per_play: float
     arcade_id: str
+
+class Manager_Create(BaseModel):
+    username:str
+    password:str
+    arcade_id:str
+    phone_number:Annotated[str,Field(min_length=10, max_length=15, pattern=r'^\+?\d{10,15}$')]
+
+class Manager_Create_Response(BaseModel):
+   username:str
+   id:int
+   arcade_id:str
+
+class Find_Manager(BaseModel):
+    username:str
+    id:int
+class Manager_Response(BaseModel):
+    username:str
+    arcade_id:str
+    phone_number:str
+  
+    id:int
+    
+
+
+
+
 
 
 

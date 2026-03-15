@@ -30,7 +30,7 @@ def get_dashboard_summary(
     total_punches = punch_query.scalar() or 0
 
     # 3. Active Players (Unique cards punched in the last 2 hours)
-    time_threshold = datetime.now(datetime-timezone) - timedelta(hours=2)
+    time_threshold = datetime.now(timezone.utc) - timedelta(hours=2)
     active_query = db.query(func.count(models.PunchHistory.card_id.distinct())).filter(
         models.PunchHistory.timestamp >= time_threshold
     )
