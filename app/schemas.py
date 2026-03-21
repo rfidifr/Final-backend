@@ -53,10 +53,17 @@ class MachineCreate(BaseModel):
     
 
 class MachineResponse(BaseModel):
+    id: int
+    name: str
+    cost_per_play: float
+    message: Optional[str] = "Machine created successfully"
+
+class machinedetailsResponse(BaseModel):
     id: str
     name: str
     cost_per_play: float
-    arcade_id: str
+    status: MachineStatus
+    
 
 class Manager_Create(BaseModel):
     username:str

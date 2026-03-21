@@ -98,7 +98,7 @@ def get_manager_details(
         "phone_number": user.phone_number
     }                  
 
-@router.get("/machine_details", status_code=status.HTTP_200_OK)
+@router.get("/machine_details", status_code=status.HTTP_200_OK,response_model=schemas.machinedetailsResponse)
 def machine_details(
     name: str, 
     current_user = Depends(get_current_user), 
@@ -118,7 +118,13 @@ def machine_details(
     if not machines:
         raise HTTPException(status_code=404, detail="Machine not found in your arcade")
 
-    return machines
+    return  {
+        "id": machines.id,  
+        "name": machines.name,
+        "cost_per_play": machines.cost_per_play,
+        "status": machines.status
+    }
+
 
 @router.post("/new_machine", response_model=schemas.MachineResponse)
 def new_machine(
@@ -141,7 +147,7 @@ def new_machine(
     db.refresh(new_machine_obj)
 
     return {
-        "machine_id": new_machine_obj.id,
+        "id": new_machine_obj.id,
         "name": new_machine_obj.name,
         "cost_per_play": new_machine_obj.cost_per_play,
         "message": "Machine created successfully"
